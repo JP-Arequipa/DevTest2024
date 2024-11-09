@@ -13,8 +13,18 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(
     options => options.UseSqlServer(connection));
-
-builder.Services.AddSingleton<IPollRepository, InMemoryPollRepository>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        policy  =>
+        {
+            policy.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+});
+//builder.Services.AddSingleton<IPollRepository, InMemoryPollRepository>();
+builder.Services.AddScoped<IPollRepository, EntityFrameworkPollRepository>();
 builder.Services.AddScoped<IPollService, PollService>();
 
 var app = builder.Build();
@@ -26,6 +36,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowSpecificOrigin");
 app.UseHttpsRedirection();
 app.MapControllers();
 

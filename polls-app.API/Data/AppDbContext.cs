@@ -5,9 +5,16 @@ namespace polls_app.API.Data;
 
 public class AppDbContext : DbContext
 {
-    private DbSet<Poll> Polls;
-    
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
+    }
+    
+    public DbSet<Poll> Polls { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Poll>()
+            .Property(p => p.Id)
+            .ValueGeneratedOnAdd();
     }
 }
