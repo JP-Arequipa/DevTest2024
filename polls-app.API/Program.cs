@@ -23,9 +23,10 @@ builder.Services.AddCors(options =>
                 .AllowAnyHeader();
         });
 });
-//builder.Services.AddSingleton<IPollRepository, InMemoryPollRepository>();
+
+builder.Services.AddSingleton<IPollRepository, InMemoryPollRepository>();
 builder.Services.AddScoped<IPollRepository, EntityFrameworkPollRepository>();
-builder.Services.AddScoped<IPollService, PollService>();
+//builder.Services.AddScoped<IPollService, PollService>();
 
 var app = builder.Build();
 

@@ -15,6 +15,22 @@ public class AppDbContext : DbContext
     {
         modelBuilder.Entity<Poll>()
             .Property(p => p.Id)
+            .ValueGeneratedOnAdd(); 
+
+        modelBuilder.Entity<PollOption>()
+            .Property(po => po.Id)
             .ValueGeneratedOnAdd();
+        
+        modelBuilder.Entity<Poll>()
+            .Property(p => p.Name)
+            .IsRequired()
+            .HasMaxLength(255); 
+        
+        modelBuilder.Entity<PollOption>()
+            .Property(po => po.Name)
+            .IsRequired()
+            .HasMaxLength(255);
+
+        base.OnModelCreating(modelBuilder);
     }
 }

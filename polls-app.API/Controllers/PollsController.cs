@@ -38,7 +38,7 @@ public class PollsController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult CreatePoll([FromBody] Poll poll) //crear dto
+    public IActionResult CreatePoll([FromBody] Poll poll)
     {
         try
         {
